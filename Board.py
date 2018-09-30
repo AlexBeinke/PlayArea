@@ -1,6 +1,6 @@
 import random
 
-WIDTH = 4
+WIDTH = 6
 HEIGHT = WIDTH
 SPACE = [-1, 0, 1]
 
@@ -13,7 +13,7 @@ class Board:
             height_counter = 0
             column = []
             while height_counter < HEIGHT:
-                column.append(random.randint(0, 2) % len(SPACE))
+                column.append(random.randint(0, len(SPACE) - 1))
                 height_counter += 1
 
             self.contents.append(column)
