@@ -1,5 +1,5 @@
 
-WIDTH = 2
+WIDTH = 4
 HEIGHT = WIDTH
 SPACE = [-1,0,1]
 
@@ -47,6 +47,12 @@ class Board:
 
 if __name__ =="__main__":
     myBoard = Board()
+    stateBoard = Board()
+    stateBoard.contents = []
+    print(str(myBoard))
+    for row in myBoard.contents:
+        stateBoard.contents.append(row.copy())
+
     rowCounters = []
     for i in range(HEIGHT):
         rowCounters.append(0)
@@ -60,7 +66,9 @@ if __name__ =="__main__":
     startRow = rowCounters.copy()
     startColumn = columnCounters.copy()
 
-    startRow[0] = 1
+    rowCounters[0] = 1
+    myBoard.addToRow(0)
+
 
     while startRow != rowCounters or startColumn != columnCounters:
         # we haven't tried everything yet
@@ -80,12 +88,24 @@ if __name__ =="__main__":
                     carry = False
                 myBoard.addToRow(i)
                 rowCounters[i] = (rowCounters[i] + 1) % len(SPACE)
-        print("**********")
-        print(str(myBoard))
-        print("Score: " + str(myBoard.score()))
-        print("**********")
-
+        for i in range(WIDTH):
+            if carry:
+                if columnCounters[i] != len(SPACE) - 1:
+                    carry = False
+                myBoard.addToColumn(i)
+                columnCounters[i] = (columnCounters[i] + 1) % len(SPACE)
 
     print(bestRow)
     print(bestColumn)
 
+    for i in range(len(bestRow)):
+        for j in range(bestRow[i]):
+            stateBoard.addToRow(i)
+            print("rolling row " + str(i))
+    for i in range(len(bestColumn)):
+        for j in range(bestColumn[i]):
+            stateBoard.addToColumn(i)
+            print("rolling column " + str(i))
+    print('best solution:')
+    print(str(stateBoard))
+    print('best score: ' + str(stateBoard.score()))
