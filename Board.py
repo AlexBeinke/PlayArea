@@ -2,7 +2,7 @@ import random
 
 WIDTH = 4
 HEIGHT = WIDTH
-SPACE = [-1,0,1]
+SPACE = [-1, 0, 1]
 
 class Board:
 
