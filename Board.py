@@ -53,12 +53,37 @@ if __name__ =="__main__":
     columnCounters = []
     for i in range(WIDTH):
         columnCounters.append(0)
+    bestScore = myBoard.score()
     bestRow = rowCounters.copy()
     bestColumn = columnCounters.copy()
-    print(rowCounters)
-    print(columnCounters)
 
+    startRow = rowCounters.copy()
+    startColumn = columnCounters.copy()
 
+    startRow[0] = 1
+
+    while startRow != rowCounters or startColumn != columnCounters:
+        # we haven't tried everything yet
+        thisBoardScore = myBoard.score()
+        if thisBoardScore > bestScore:
+            bestRow = rowCounters.copy()
+            bestColumn = columnCounters.copy()
+            bestScore = thisBoardScore
+        carry = False
+        if rowCounters[0] == len(SPACE) - 1:
+            carry = True
+        myBoard.addToRow(0)
+        rowCounters[0] = (rowCounters[0] + 1) % len(SPACE)
+        for i in range(1, HEIGHT):
+            if carry:
+                if rowCounters[i] != len(SPACE) - 1:
+                    carry = False
+                myBoard.addToRow(i)
+                rowCounters[i] = (rowCounters[i] + 1) % len(SPACE)
+        print("**********")
+        print(str(myBoard))
+        print("Score: " + str(myBoard.score()))
+        print("**********")
 
 
     print(bestRow)
