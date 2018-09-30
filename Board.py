@@ -1,5 +1,5 @@
 
-WIDTH = 4
+WIDTH = 2
 HEIGHT = WIDTH
 SPACE = [-1,0,1]
 
@@ -45,9 +45,22 @@ class Board:
         return total
 
 
-
-
-
 if __name__ =="__main__":
     myBoard = Board()
+    rowCounters = []
+    for i in range(HEIGHT):
+        rowCounters.append(0)
+    columnCounters = []
+    for i in range(WIDTH):
+        columnCounters.append(0)
+    bestRow = rowCounters.copy()
+    bestColumn = columnCounters.copy()
+    print(rowCounters)
+    print(columnCounters)
+
+
+
+
+    print(bestRow)
+    print(bestColumn)
 
